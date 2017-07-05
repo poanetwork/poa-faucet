@@ -1,0 +1,25 @@
+button,
+input,
+textarea {
+  outline: none;
+  font-family: 'Open Sans', sans-serif;
+}
+
+input {
+  transition: 0.3s border-color;
+  width: 300px;
+  border-radius: 3px;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+  margin-right: 10px;
+
+  &:focus {
+    border-color: #08b3f2;
+  }
+}
+
+input {
+  padding: 0 15px;
+  height: 36px;
+  margin-bottom: 20px;
+}

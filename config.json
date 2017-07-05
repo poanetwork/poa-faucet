@@ -1,0 +1,16 @@
+{
+  "environment": "live",
+  "debug": false,
+  "Captcha": {
+    "secret": ""
+  },
+  "Ethereum": {
+    "etherToTransfer": 0.5,
+    "gasLimit": "0x7b0c",
+    "live": {
+      "rpc": "http://127.0.0.1:8545",
+      "account": "",
+      "privateKey": ""
+    },
+  }
+}

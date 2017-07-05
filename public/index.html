@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Oracles network dev testnet faucet</title>
+    <link rel="stylesheet" type="text/css" href="./assets/stylesheets/application.css">
+    <link rel="apple-touch-icon" href="./favicons/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./favicons/favicon-192x192.png">
+    <link rel="mask-icon" color="#6151cc" href="./favicons/safari-pinned-tab.svg">
+    <link rel="manifest" href="./favicons/manifest.webmanifest">
+    <link href="./favicons/favicon.ico" rel="icon" type="image/x-icon">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <a href="#" class="header-logo"></a>
+      </div>
+    </header>
+    <section class="content">
+      <div class="request-tokens">
+        <h1>Oracles dev test network faucet</h1>
+        <form action="/" method="POST" id="faucetForm">
+          <input type="text" id="receiver" name="receiver" />
+          <h2>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do <br>
+            Duis laoreet eros nec rutrum. Suspendisse lorem in varius.
+          </h2>
+          <button type="submit" id="requestTokens" class="request-tokens-button">Request 0.5 ETH</button>
+          <div class="text-xs-center">
+            <div class="g-recaptcha" data-sitekey="type your reCaptcha plugin secret here"></div>
+          </div>
+        </form>
+      </div>
+    </section>
+    <div class="loading-container hidden">
+      <div class="loading">
+        <div class="loading-i"></div>
+        <div class="loading-i"></div>
+        <div class="loading-i"></div>
+        <div class="loading-i"></div>
+        <div class="loading-i"></div>
+        <div class="loading-i"></div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <a href="#" class="footer-logo"></a>
+        <div class="socials">
+          <a href="#" class="socials-i socials-i_reddit"></a>
+          <a href="https://twitter.com/oraclesorg" class="socials-i socials-i_twitter"></a>
+          <a href="#" class="socials-i socials-i_bitcoin"></a>
+        </div>
+        <p class="footer-rights">2017 Oracles. All rights reserved.</p>
+      </div>
+    </footer>
+    <script src="./assets/javascripts/application.js" type="text/javascript"></script>
+  </body>
+</html>

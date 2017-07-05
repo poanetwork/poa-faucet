@@ -1,0 +1,22 @@
+{
+  "name": "oracles-faucet",
+  "version": "1.0.0",
+  "description": "Oracles network faucet",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oraclesorg/oracles-faucet"
+  },
+  "author": "Oraclesorg",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "ethereumjs-tx": "^1.3.1",
+    "express": "^4.15.2",
+    "querystring": "^0.2.0",
+    "web3": "^0.19.1"
+  }
+}
