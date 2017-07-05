@@ -1,6 +1,6 @@
-### Oracles faucet
+## Oracles faucet
 
-## Building from source
+### Building from source
 
 1. Clone repository
 2. Update config.json `./config.json` (see config.json with placeholders below)
@@ -12,7 +12,7 @@
 8. `npm run coffee`
 9. Go to project's root and run `npm start`. Oracles faucet will be launched at `http://localhost:5000`
 
-## Server config.json (`./config.json`) with placeholders
+### Server config.json (`./config.json`) with placeholders
 ```
 {
   "environment": "switcher between configurations: 'live' or 'dev'",
