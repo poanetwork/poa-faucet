@@ -18,7 +18,7 @@
   "environment": "switcher between configurations: 'live' or 'dev'",
   "debug": "switch on/off server logs: true or false",
   "Captcha": {
-    "secret": "type your reCaptcha plugin secret here"
+    "secret": "type your reCAPTCHA plugin secret here"
   },
   "Ethereum": {
     "etherToTransfer": "type amount of Ether to be sent from faucet here, for example 0.5",
