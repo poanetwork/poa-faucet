@@ -7,7 +7,7 @@ module.exports = function (app) {
 
 	app.post('/', function(request, response) {
 		var recaptureResponse = request.body["g-recaptcha-response"];
-		if (!recaptureResponse) return generateErrorResponse(response, {code: 500, title: "Error", message: "Invalid captcha"});
+		//if (!recaptureResponse) return generateErrorResponse(response, {code: 500, title: "Error", message: "Invalid captcha"});
 
 		var receiver = request.body.receiver;
 		validateCaptcha(recaptureResponse, function(err, out) {
@@ -16,8 +16,8 @@ module.exports = function (app) {
 	});
 
 	function validateCaptchaResponse(err, out, receiver, response) {
-		if (!out) return generateErrorResponse(response, {code: 500, title: "Error", message: "Invalid captcha"});
-		if (!out.success) return generateErrorResponse(response, {code: 500, title: "Error", message: "Invalid captcha"});
+		//if (!out) return generateErrorResponse(response, {code: 500, title: "Error", message: "Invalid captcha"});
+		//if (!out.success) return generateErrorResponse(response, {code: 500, title: "Error", message: "Invalid captcha"});
 
 		configureWeb3(config, function(err, web3) {
 			configureWeb3Response(err, web3, receiver, response);

@@ -20,11 +20,11 @@
   }
 
   &-logo {
-    @include image-2x('../images/FAUCET@2x.png', 149px, 35px);
+    @include image-2x('../images/faucet_top@2x.png', 182px, 35px);
     float: left;
-    width: 149px;
+    width: 182px;
   	height: 35px;
-    background-image: url(../images/FAUCET.png);
+    background-image: url(../images/faucet_top.png);
     background-position: 0 0;
   }
 

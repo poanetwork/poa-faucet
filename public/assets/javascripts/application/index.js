@@ -1,6 +1,7 @@
 $(function() {
 	var loader = $(".loading-container");
-	$( "#faucetForm" ).submit(function( e ) {
+	//$( "#faucetForm" ).submit(function( e ) {
+	$( "#requestTokens" ).click(function( e ) {
 		e.preventDefault();
     	$this = $(this);
 		loader.removeClass("hidden");
@@ -8,7 +9,9 @@ $(function() {
 		$.ajax({
 		  	url:"/",
 		  	type:"POST",
-		  	data:$this.serialize(),
+		  	data: {//$this.serialize(),
+		  		receiver: receiver
+		  	}
 		}).done(function(data) {
 			if (!data.success) {
 				loader.addClass("hidden");
@@ -20,7 +23,7 @@ $(function() {
 				$("#receiver").val('');
 				loader.addClass("hidden");
 				swal("Success",
-				  "0.5 ETH is successfully transfered to <a href='http://devtestnet.oracles.org:4000/tx/" + data.success.txHash + "' target='blank'>" + receiver + "</a>",
+				  "0.5 ETH is successfully transfered to " + receiver + "</a>",
 				  "success"
 				);
 				grecaptcha.reset();

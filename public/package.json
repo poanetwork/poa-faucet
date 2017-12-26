@@ -1,7 +1,7 @@
 {
   "name": "oracles-faucet-front",
   "version": "1.0.0",
-  "description": "Oracles network faucet frontend",
+  "description": "Sokol testnet POA Network network faucet frontend",
   "main": "gulpfile.js",
   "devDependencies": {
     "gulp": "^3.9.1",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oraclesorg/oracles-faucet"
+    "url": "https://git.heroku.com/oraclesfaucet.git"
   },
   "keywords": [],
   "author": "Oraclesorg",

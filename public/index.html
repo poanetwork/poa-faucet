@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Oracles network dev testnet faucet</title>
+    <title>Sokol POA Network dev testnet faucet</title>
     <link rel="stylesheet" type="text/css" href="./assets/stylesheets/application.css">
     <link rel="apple-touch-icon" href="./favicons/favicon-192x192.png">
     <link rel="icon" type="image/png" sizes="192x192" href="./favicons/favicon-192x192.png">
@@ -17,20 +17,20 @@
       </div>
     </header>
     <section class="content">
-      <form action="/" method="POST" id="faucetForm">
+      <!--<form action="/" method="POST" id="faucetForm">-->
         <div class="request-tokens">
-          <h1>Oracles dev test network faucet</h1>
+          <h1>Sokol POA Network faucet</h1>
             <input type="text" id="receiver" name="receiver" />
             <h2>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do <br>
-              Duis laoreet eros nec rutrum. Suspendisse lorem in varius.
+              Please use <a href="https://sokol.poa.network">https://sokol.poa.network</a> RPC to connect<br>
+              to the Sokol testnet.
             </h2>
             <button type="submit" id="requestTokens" class="request-tokens-button">Request 0.5 ETH</button>
         </div>
-        <div class="text-xs-center">
-          <div class="g-recaptcha" data-sitekey=""></div>
-        </div>
-      </form>
+        <!--<div class="text-xs-center">
+          <div class="g-recaptcha" data-sitekey="6LdcdjQUAAAAACIxl5VzkTRuVG5KvWdf0rYcC7mD"></div>
+        </div>-->
+      <!--</form>-->
     </section>
     <div class="loading-container hidden">
       <div class="loading">
@@ -44,15 +44,16 @@
     </div>
     <footer class="footer">
       <div class="container">
-        <a href="#" class="footer-logo"></a>
+        <p class="rights">2017 POA Network. All rights reserved.</p>
+        <a class="logo" href='/'></a>
         <div class="socials">
-          <a href="#" class="socials-i socials-i_reddit"></a>
-          <a href="https://twitter.com/oraclesorg" class="socials-i socials-i_twitter"></a>
-          <a href="#" class="socials-i socials-i_bitcoin"></a>
+          <a href="https://twitter.com/poanetwork" class="social social_twitter"></a>
+          <a href="https://poa.network" class="social social_oracles"></a>
+          <a href="https://t.me/oraclesnetwork" class="social social_telegram"></a>
+          <a href="https://github.com/poanetwork" class="social social_github"></a>
         </div>
-        <p class="footer-rights">2017 Oracles. All rights reserved.</p>
       </div>
     </footer>
-    <script src="./assets/javascripts/application.js" type="text/javascript"></script>
+    <script src="./assets/javascripts/application.js?v=1.4" type="text/javascript"></script>
   </body>
 </html>

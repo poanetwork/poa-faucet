@@ -32,12 +32,12 @@ require('./controllers/index')(app);
 require('./controllers/getTxCallBack')(app);
 
 app.get('/', function(request, response) {
-  response.send('Oracles dev test network faucet');
+  response.send('Sokol POA Network faucet');
 });
 
 app.set('port', (process.env.PORT || 5000));
 
 app.listen(app.get('port'), function () {
-    console.log('Oracles dev test network faucet is running on port', app.get('port'));
+    console.log('Sokol testnet POA Network faucet is running on port', app.get('port'));
 });
 

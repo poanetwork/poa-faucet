@@ -1,16 +1,16 @@
 {
-  "name": "oracles-faucet",
+  "name": "poa-network-sokol-faucet",
   "version": "1.0.0",
-  "description": "Oracles network faucet",
+  "description": "Sokol tetnet POA Network faucet",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oraclesorg/oracles-faucet"
+    "url": "https://git.heroku.com/faucet-sokol.git"
   },
-  "author": "Oraclesorg",
+  "author": "poanetwork",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.1",

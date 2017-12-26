@@ -1,28 +1,27 @@
 .socials {
-  position: relative;
-  z-index: 2;
-  float: right;
   font-size: 0;
 
-  &-i {
+  .social {
     transition: 0.3s background-color;
     position: relative;
     display: inline-block;
     vertical-align: top;
     width: 30px;
     height: 30px;
-    margin-left: 10px;
     border-radius: 50%;
     background-color: fade-out(#fff, 0.8);
 
+    &:not(:first-child) {
+      margin-left: 10px;
+    }
+
     &:hover {
-      @media screen and (min-width: 768px) {
-        background-color: fade-out(#fff, 0.6);
-      }
+      background-color: fade-out(#fff, 0.6);
     }
 
     &:before {
-      @include image-2x('../images/socials@2x.png', 15px, 40px);
+      @include image-2x('../images/socials@2x.png', 16px, 69px);
+      transform: translate(-50%, -50%);
       content: '';
       position: absolute;
       left: 50%;
@@ -30,12 +29,35 @@
       background-image: url(../images/socials.png);
     }
 
+    &_github {
+      &:before {
+        width: 16px;
+        height: 16px;
+        background-position: 0 0;
+      }
+    }
+
+    &_oracles {
+      &:before {
+        width: 16px;
+        height: 14px;
+        background-position: 0 -16px;
+      }
+    }
+
     &_reddit {
       &:before {
         width: 15px;
-      	height: 13px;
-        margin: -6.5px 0 0 -7.5px;
-        background-position: 0 -15px;
+        height: 13px;
+        background-position: 0 -30px;
+      }
+    }
+
+    &_telegram {
+      &:before {
+        width: 16px;
+        height: 14px;
+        background-position: 0 -43px;
       }
     }
 
@@ -43,17 +65,7 @@
       &:before {
         width: 15px;
         height: 12px;
-        margin: -6px 0 0 -7.5px;
-        background-position: 0 -28px;
-      }
-    }
-
-    &_bitcoin {
-      &:before {
-        width: 11px;
-      	height: 15px;
-        margin: -7.5px 0 0 -5.5px;
-        background-position: 0 0;
+        background-position: 0 -57px;
       }
     }
   }

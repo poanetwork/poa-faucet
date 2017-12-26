@@ -1,4 +1,4 @@
-## Oracles faucet
+## Sokol POA Network faucet
 
 ### Building from source
 
@@ -10,7 +10,7 @@
 6. `npm install`
 7. `npm run sass`
 8. `npm run coffee`
-9. Go to project's root and run `npm start`. Oracles faucet will be launched at `http://localhost:5000`
+9. Go to project's root and run `npm start`. Sokol POA Network faucet will be launched at `http://localhost:5000`
 
 ### Server config.json (`./config.json`) with placeholders
 ```
@@ -18,7 +18,7 @@
   "environment": "switcher between configurations: 'live' or 'dev'",
   "debug": "switch on/off server logs: true or false",
   "Captcha": {
-    "secret": "type your reCAPTCHA plugin secret here"
+    "secret": "type your reCaptcha plugin secret here"
   },
   "Ethereum": {
     "etherToTransfer": "type amount of Ether to be sent from faucet here, for example 0.5",
