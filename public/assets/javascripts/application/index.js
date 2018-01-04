@@ -23,7 +23,7 @@ $(function() {
 				$("#receiver").val('');
 				loader.addClass("hidden");
 				swal("Success",
-				  "0.5 ETH is successfully transfered to " + receiver + "</a>",
+				  "0.5 POA is successfully transfered to " + receiver + "</a>",
 				  "success"
 				);
 				grecaptcha.reset();
