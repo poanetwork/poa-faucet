@@ -29,7 +29,6 @@ require('./helpers/configHelper')(app);
 require('./helpers/blockchainHelper')(app);
 require('./helpers/captchaHelper')(app);
 require('./controllers/index')(app);
-require('./controllers/getTxCallBack')(app);
 
 app.get('/', function(request, response) {
   response.send('Sokol POA Network faucet');

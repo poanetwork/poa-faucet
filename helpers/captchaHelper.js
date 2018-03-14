@@ -7,60 +7,62 @@ module.exports = function (app) {
 
 	app.validateCaptcha = validateCaptcha;
  
-	function validateCaptcha(captchaResponse, cb) {
-	    var secret = config.Captcha.secret;
-	    var post_data_json = {
-	      "secret": secret,
-	      "response": captchaResponse
-	    }
+	function validateCaptcha(captchaResponse) {
+		return new Promise((resolve, reject) => {
+			var secret = config.Captcha.secret;
+		    var post_data_json = {
+		      "secret": secret,
+		      "response": captchaResponse
+		    }
 
-	    var post_data = querystring.stringify(post_data_json);
+		    var post_data = querystring.stringify(post_data_json);
 
-	    debug(post_data_json);
-	    debug(post_data);
+		    debug(post_data_json);
+		    debug(post_data);
 
-	    // An object of options to indicate where to post to
-	    var post_options = {
-	        host: "www.google.com",
-	        port: '443',
-	        path: "/recaptcha/api/siteverify",
-	        method: 'POST',
-	        headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-	    };
-
-	    debug(post_options);
-
-	    var post_req = https.request(post_options, function (res) {
-	        res.setEncoding('utf8');
-	        var output = "";
-	        res.on('data', function (chunk) {
-	          output += chunk;
-	        });
-
-	        res.on('end', function () {
-	            debug("##############");
-	            debug('Output from validateCaptcha: ');
-	            debug(output);
-	            debug("##############");
-	            if (output) {
-	              debug(JSON.parse(output));
-	              cb(null, JSON.parse(output));
-	            } else {
-	              cb();
+		    // An object of options to indicate where to post to
+		    var post_options = {
+		        host: "www.google.com",
+		        port: '443',
+		        path: "/recaptcha/api/siteverify",
+		        method: 'POST',
+		        headers: {
+	                'Content-Type': 'application/x-www-form-urlencoded'
 	            }
-	        });
-	    });
+		    };
 
-	    post_req.on('error', function (err) {
-	        debug(err);
-	        cb(err);
-	    });
-	    // post the data
-	    post_req.write(post_data, 'binary', function(e) {
-	      if (e) debug(e);
-	    });
-	    post_req.end();
+		    debug(post_options);
+
+		    var post_req = https.request(post_options, function (res) {
+		        res.setEncoding('utf8');
+		        var output = "";
+		        res.on('data', function (chunk) {
+		          output += chunk;
+		        });
+
+		        res.on('end', function () {
+		            debug("##############");
+		            debug('Output from validateCaptcha: ');
+		            debug(output);
+		            debug("##############");
+		            if (output) {
+		              debug(JSON.parse(output));
+		              resolve(JSON.parse(output));
+		            } else {
+		              resolve();
+		            }
+		        });
+		    });
+
+		    post_req.on('error', function (err) {
+		        debug(err);
+		        reject(err);
+		    });
+		    // post the data
+		    post_req.write(post_data, 'binary', function(e) {
+		      if (e) debug(e);
+		    });
+		    post_req.end();
+		})
 	};
 }

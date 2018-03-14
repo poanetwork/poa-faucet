@@ -5,8 +5,8 @@
     "secret": ""
   },
   "Ethereum": {
-    "etherToTransfer": 0.5,
-    "gasLimit": "0x7b0c",
+    "milliEtherToTransfer": 500,
+    "gasLimit": "21000",
     "live": {
       "rpc": "http://127.0.0.1:8545",
       "account": "",
