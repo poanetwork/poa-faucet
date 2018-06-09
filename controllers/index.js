@@ -30,7 +30,7 @@ module.exports = function (app) {
 			return generateErrorResponse(response, e);
 		}
 		let resp = {};
-		resp.address = config.Ethereum.live.account;
+		resp.address = config.Ethereum[config.environment].account;
 		let balanceInWei = await web3.eth.getBalance(resp.address);
 		let balanceInEth = await web3.utils.fromWei(balanceInWei, "ether");
 		resp.balanceInWei = balanceInWei;
