@@ -41,7 +41,10 @@
       &:before {
         width: 16px;
         height: 14px;
-        background-position: 0 -16px;
+        background-position: center;
+        background-image: url(../images/poa.png);
+        background-repeat: no-repeat;
+        background-size: 16px 5px;
       }
     }
 
