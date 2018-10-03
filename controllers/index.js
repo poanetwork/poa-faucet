@@ -9,7 +9,6 @@ module.exports = function (app) {
 		console.log("REQUEST:")
 		console.log(request.body)
 		var recaptureResponse = request.body["g-recaptcha-response"];
-		//console.log("recaptureResponse: ", recaptureResponse)
 		if (!recaptureResponse) return generateErrorResponse(response, {code: 500, title: "Error", message: "Invalid captcha"});
 
 		var receiver = request.body.receiver;

@@ -1,7 +1,6 @@
 $(function() {
 	var loader = $(".loading-container");
 	$( "#faucetForm" ).submit(function( e ) {
-	//$( "#requestTokens" ).click(function( e ) {
 		e.preventDefault();
     	$this = $(this);
 		loader.removeClass("hidden");
@@ -9,9 +8,7 @@ $(function() {
 		$.ajax({
 		  	url:"/",
 		  	type:"POST",
-		  	data: $this.serialize()/*{,
-		  		receiver: receiver
-		  	}*/
+		  	data: $this.serialize()
 		}).done(function(data) {
 			grecaptcha.reset();
 			if (!data.success) {
@@ -25,7 +22,7 @@ $(function() {
 			$("#receiver").val('');
 			loader.addClass("hidden");
 			swal("Success",
-			  `0.5 SPOA has successfully transferred to <a href="https://sokol.poaexplorer.com/txid/search/${data.success.txHash}" target="blank">${receiver}</a>`,
+			  `0.5 SPOA has successfully transferred to <a href="https://blockscout.com/poa/sokol/tx/${data.success.txHash}" target="blank">${receiver}</a>`,
 			  "success"
 			);
 		}).fail(function(err) {

@@ -20,7 +20,6 @@ module.exports = function (app) {
 		    debug(post_data_json);
 		    debug(post_data);
 
-		    // An object of options to indicate where to post to
 		    var post_options = {
 		        host: "www.google.com",
 		        port: '443',
@@ -58,7 +57,7 @@ module.exports = function (app) {
 		        debug(err);
 		        reject(err);
 		    });
-		    // post the data
+
 		    post_req.write(post_data, 'binary', function(e) {
 		      if (e) debug(e);
 		    });
