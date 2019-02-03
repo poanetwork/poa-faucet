@@ -55,5 +55,9 @@
       </div>
     </footer>
     <script src="./assets/javascripts/application.js?v=1.4" type="text/javascript"></script>
+    <script type="text/javascript">
+      var url = new URL(window.location.href);
+      document.getElementById('receiver').value = url.searchParams.get("address");
+    </script>
   </body>
 </html>
