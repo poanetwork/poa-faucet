@@ -1,5 +1,5 @@
 {
-  "environment": "live",
+  "environment": "prod",
   "debug": false,
   "Captcha": {
     "secret": ""
@@ -7,7 +7,7 @@
   "Ethereum": {
     "milliEtherToTransfer": 500,
     "gasLimit": "21000",
-    "live": {
+    "prod": {
       "rpc": "http://127.0.0.1:8545",
       "account": "",
       "privateKey": ""

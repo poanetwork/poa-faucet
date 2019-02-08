@@ -14,31 +14,31 @@ const uglify = require('gulp-uglify');
 
 gulp.task('sass', function() {
   return gulp.src([
-    'assets/stylesheets/*.scss',
-    './assets/stylesheets/sweetalert2.min.css'
+    './public/assets/stylesheets/*.scss',
+    './public/assets/stylesheets/sweetalert2.min.css'
     ])
     .pipe(sassGlob())
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(concatCss('application.css'))
     .pipe(uglifycss())
-    .pipe(gulp.dest('assets/stylesheets/'));
+    .pipe(gulp.dest('./public/assets/stylesheets/'));
 });
 
 gulp.task('javascript', function() {
-  return gulp.src('assets/javascripts/application/*.js')
-    .pipe(addsrc('assets/javascripts/vendor/index.js'))
+  return gulp.src('public/assets/javascripts/application/*.js')
+    .pipe(addsrc('public/assets/javascripts/vendor/index.js'))
     .pipe(order([
-      "assets/javascripts/vendor/index.js",
-      "assets/javascripts/application/*.js"
+      "public/assets/javascripts/vendor/index.js",
+      "public/assets/javascripts/application/*.js"
     ], {base: '.'}))
     .pipe(include())
     .pipe(concat('application.js'))
-    //.pipe(uglify())
-    .pipe(gulp.dest('assets/javascripts'));
+    // .pipe(uglify())
+    .pipe(gulp.dest('public/assets/javascripts'));
 });
 
 gulp.task('watch', function() {
-  gulp.watch('assets/stylesheets/**/**/*.scss', ['sass']);
-  gulp.watch('assets/javascripts/application/*.js', ['javascript']);
+  gulp.watch('./public/assets/stylesheets/**/**/*.scss', ['sass']);
+  gulp.watch('./public/assets/javascripts/application/*.js', ['javascript']);
 });
