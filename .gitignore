@@ -1,4 +1,5 @@
 .DS_Store
 node_modules/
 public/assets/javascripts/application.js
-public/stylesheets/application.css
+public/assets/stylesheets/application.css
+config.json
