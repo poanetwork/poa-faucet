@@ -23,7 +23,7 @@
   "Captcha": {
     "secret": "reCaptcha plugin secret"
   },
-  "Ethereum": {
+  "Ethereum": {0xc7A37BBbfF6bC3Afb7c8bc77DBfA1a03A81591AE
     "etherToTransfer": "The number of milliEther to be sent from the faucet. For example, 500",
     "gasLimit": "Transaction gas limit, for example, 21000",
     "prod": {
