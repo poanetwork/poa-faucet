@@ -98,6 +98,16 @@ const Faucet = () => {
       }
     }
 
+    if (config.telegram_bot === true) {
+      const botAccount = await Redis.get(`faucet:bot:${receiver}`);
+
+      if (botAccount === null) {
+        return generateErrorResponse(res, {
+          message: messages.NOT_REGISTERED,
+        });
+      }
+    }
+
     if (state.captchaType !== null) {
       const captchaResponse = (state.captchaType === 'hCaptcha') ? req.body['h-captcha-response'] : req.body['g-recaptcha-response'];
       if (!captchaResponse) {
@@ -165,9 +175,40 @@ const Faucet = () => {
       github: config.github,
       retryMax: config.retryMax,
       retrySec: config.retrySec,
-      siteKey: state.siteKey
+      siteKey: state.siteKey,
+      telegram_bot: config.telegram_bot
     };
     res.send(resp);
+  });
+
+  app.get('/bot/:address', async (req, res) => {
+    let rawIp = req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    if (rawIp.substr(0, 7) == '::ffff:') {
+      rawIp = rawIp.substr(7);
+    }
+    let receiver = req.params.address;
+    debug(`Query: ${receiver} from ${rawIp}`);
+
+    if (!isAddress(receiver)) {
+      return generateErrorResponse(res, {
+        message: messages.INVALID_ADDRESS,
+      });
+    }
+    receiver = NodeManager.web3.utils.toChecksumAddress(receiver);
+
+    if (config.telegram_bot === true) {
+      const botAccount = await Redis.get(`faucet:bot:${receiver}`);
+
+      if (botAccount === null) {
+        return generateErrorResponse(res, {
+          message: messages.NOT_REGISTERED,
+        });
+      }
+    }
+
+    return generateSuccessResponse(res, {
+      message: messages.ELIGIBLE,
+    });
   });
 
   app.get('/query/:address', async (req, res) => {

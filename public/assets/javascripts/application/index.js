@@ -150,6 +150,28 @@ const checkAddress = async () => {
   }
 }
 
+const checkBot = async () => {
+  if (config.telegram_bot !== true) {
+    return true;
+  }
+  try {
+    const receiver = $("#receiver").val();
+    const result = await axios.get(`/bot/${receiver}`, { retryMax: 0 });
+    if (!result || result.message !== 'Eligible Address') {
+      throw new Error('Not Eligible Address');
+    }
+    return true;
+  } catch (e) {
+    console.error(`Address ${receiver} not registered`);
+    polipop.add({
+			type: 'error',
+			title: 'Error',
+			content: `Address not registered from <a href="${config.telegram}" target="_blank">${config.telegram}</a>`
+		});
+    return false;
+  }
+}
+
 const checkFaucetBalance = () => {
 	const faucetAmount = new BigNumber(health.balanceInEth);
 	const amountToGive = new BigNumber(config.ethPerUser);
@@ -299,7 +321,7 @@ const handleMetamask = async () => {
       polipop.add({
         type: 'success',
         title: 'Success',
-        content: `Network changed`
+        content: 'Fetched account from Metamask'
       });
     } catch (switchError) {
       // This error code indicates that the chain has not been added to MetaMask.
@@ -382,6 +404,10 @@ const main = async () => {
 			}
       const checkUser = await checkAddress();
       if (!checkUser) {
+        return;
+      }
+      const botUser = await checkBot();
+      if (!botUser) {
         return;
       }
 			const checkFaucet = checkFaucetBalance();

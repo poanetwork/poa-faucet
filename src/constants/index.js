@@ -6,6 +6,7 @@ const messages = Object.freeze({
   JOB_QUEUED: 'Job has been queued',
   TX_HAS_BEEN_MINED_WITH_FALSE_STATUS: 'Transaction has been mined, but status is false',
   TX_HAS_BEEN_MINED: 'Tx has been mined',
+  NOT_REGISTERED: 'Account not registered from Telegram Bot'
 });
 
 const status = Object.freeze({

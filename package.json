@@ -4,7 +4,7 @@
   "description": "Etherum Network Faucet",
   "main": "src/index.js",
   "scripts": {
-    "start": "gulp && concurrently --kill-others \"node src/start.js\" \"node src/worker.js\" \"node src/update.js\" \"gulp watch\"",
+    "start": "gulp && concurrently --kill-others \"node src/start.js\" \"node src/worker.js\" \"node src/update.js\" \"node src/bot.js\" \"gulp watch\"",
     "sass": "gulp sass",
     "coffee": "gulp javascript",
     "watch": "gulp watch",
@@ -26,6 +26,7 @@
     "ethers": "^5.6.8",
     "express": "^4.18.1",
     "ioredis": "^5.0.6",
+    "node-telegram-bot-api": "^0.57.0",
     "tx-manager": "github:ayanamitech/tx-manager",
     "use-config-json": "^1.0.5",
     "web3": "^1.7.3",
