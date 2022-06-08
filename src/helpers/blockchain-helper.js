@@ -1,6 +1,7 @@
 const NodeManager = require('../controllers/web3');
 const config = require('../controllers/config');
 const BigNumber = require('bignumber.js');
+BigNumber.config({ EXPONENTIAL_AT: 1e+9 });
 
 /** Parse private key including prefix **/
 const parsePrivateKey = () => {

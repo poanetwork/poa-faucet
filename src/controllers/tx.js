@@ -7,6 +7,7 @@ const constants = require('../constants');
 const { toWei } = require('web3-utils');
 const { TxManager: Manager } = require('tx-manager');
 const BigNumber = require('bignumber.js');
+BigNumber.config({ EXPONENTIAL_AT: 1e+9 });
 
 /**
   Process Ethereum Transactions

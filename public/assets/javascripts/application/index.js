@@ -5,6 +5,7 @@ let resultInterval;
 let resultCache;
 
 const web3 = new Web3();
+BigNumber.config({ EXPONENTIAL_AT: 1e+9 });
 
 const decimalToHexString = (number) => {
   if (number < 0) {
