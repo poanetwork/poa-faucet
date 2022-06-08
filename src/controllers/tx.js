@@ -36,7 +36,7 @@ class TxManager extends RedisQueue {
       await this.updateStatus(receiver, 'ACCEPTED');
       const txObject = {
         to: receiver,
-        value: toWei(config.EtherToTransfer)
+        value: new BigNumber(toWei(config.EtherToTransfer))
       };
       const currentTx = await this.manager.createTx(txObject);
       await currentTx

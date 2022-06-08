@@ -299,7 +299,7 @@ const responseHandler = async (formInput) => {
       content: `Request submitted`
     });
     resultCache = undefined;
-    resultInterval = setInterval(() => checkJobStatus(web3.utils.toChecksumAddress(result.address)), 2000);
+    resultInterval = setInterval(() => checkJobStatus(web3.utils.toChecksumAddress(result.address)), config.blockTime * 1000);
 	} catch (e) {
 		if (e.response?.data?.message === 'Invalid captcha') {
 			console.error(e.response?.data);
@@ -382,7 +382,7 @@ const handleMetamask = async () => {
 const main = async () => {
 	await updateStatic();
 	// Update config from server for every 10 seconds
-	setInterval(() => ignoreError(fetchHealth), 10000);
+	setInterval(() => ignoreError(fetchHealth), config.blockTime * 1000);
 
 	$("#metamask").click((e) => {
 		e.preventDefault();

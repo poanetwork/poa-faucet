@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { isAddress, fromWei } = require('web3-utils');
+const BigNumber = require('bignumber.js');
+BigNumber.config({ EXPONENTIAL_AT: 1e+9 });
 
 const path = require('path');
 const process = require('process');
@@ -43,7 +45,7 @@ const Faucet = () => {
     }
   };
   refreshFaucetBalance();
-  setInterval(() => ignoreError(refreshFaucetBalance), 60000);
+  setInterval(() => ignoreError(refreshFaucetBalance), config.blockTime * 1000);
 
   if (config.static === true) {
     app.use(express.static(path.join(process.cwd(), 'public')));
@@ -148,7 +150,7 @@ const Faucet = () => {
     const resp = {
       blockNumber: parseInt(NodeManager.blockNumber),
       balanceInWei: state.balance,
-      balanceInEth: fromWei(state.balance, 'ether'),
+      balanceInEth: new BigNumber(fromWei(state.balance, 'ether')).toString(),
       currentQueue,
       ethSpent,
       timestamp: Date.now()
@@ -158,6 +160,7 @@ const Faucet = () => {
 
   app.get('/config', (req, res) => {
     const resp = {
+      blockTime: config.blockTime,
       captchaType: state.captchaType,
       chainId: state.chainId,
       confirmations: config.confirmations,
