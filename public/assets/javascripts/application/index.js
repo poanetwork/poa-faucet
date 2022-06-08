@@ -3,6 +3,7 @@ let config;
 let health;
 let resultInterval;
 let resultCache;
+let ifFailed = null;
 
 const web3 = new Web3();
 BigNumber.config({ EXPONENTIAL_AT: 1e+9 });
@@ -63,6 +64,18 @@ const loadCaptcha = () => {
 	}
 }
 
+const showReconnected = () => {
+  if (ifFailed === null) {
+    return;
+  }
+  polipop.add({
+    type: 'success',
+    title: 'Success',
+    content: 'Server reconnected'
+  });
+  ifFailed = null;
+}
+
 const fetchHealth = async () => {
 	try {
 		const serverHealth = await axios.get('/health', axiosOptions);
@@ -82,9 +95,11 @@ const fetchHealth = async () => {
 		$("span#faucet-balance").text(`${rmDecimalBN(health.balanceInEth)} ${config.netSymbol}`);
 		$("span#ethSpent").text(`${rmDecimalBN(health.ethSpent)} ${config.netSymbol}`);
 		$("a#block-number").attr('href', `${block_link}`);
+    showReconnected();
 	} catch (e) {
 		console.error('Failed to fetch resources from /health');
 		console.error(e);
+    ifFailed = true;
 		polipop.add({
 			type: 'error',
 			title: 'Error',
