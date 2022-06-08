@@ -4,6 +4,7 @@ const config = require('./config');
 const { debug, error } = require('../helpers/debug');
 const { parsePrivateKey } = require('../helpers/blockchain-helper');
 const constants = require('../constants');
+const { setDelay } = require('../helpers/utils');
 const { toWei } = require('web3-utils');
 const { TxManager: Manager } = require('tx-manager');
 const BigNumber = require('bignumber.js');
@@ -17,17 +18,37 @@ BigNumber.config({ EXPONENTIAL_AT: 1e+9 });
 class TxManager extends RedisQueue {
   constructor() {
     super();
-    this.manager = new Manager({
-      privateKey: parsePrivateKey(),
-      rpcUrl: NodeManager.nodes.replace(/\s+/g, '').split(',')[0],
-      config: {
-        'POLL_INTERVAL': config.blockTime * 1000,
-        'MAX_RETRIES': config.retryMax,
-        'CONFIRMATIONS': config.confirmations,
-        'THROW_ON_REVERT': false,
-        'ENABLE_EIP1559': config.eip1559,
-      },
-      provider: NodeManager.ethers_provider
+    this.initManager();
+  }
+  async retryFunc(func) {
+    let count = 0;
+    while (count < config.retryMax + 1) {
+      count++;
+      try {
+        return await func();
+      } catch (e) {
+        if (config.retryMax !== 0) {
+          await setDelay(config.retrySec);
+        }
+        if (count >= config.retryMax + 1) {
+          throw e;
+        }
+      }
+    }
+  }
+  async initManager() {
+    this.manager = await this.retryFunc(() => {
+      return new Manager({
+        privateKey: parsePrivateKey(),
+        rpcUrl: NodeManager.nodes.replace(/\s+/g, '').split(',')[0],
+        config: {
+          'POLL_INTERVAL': config.blockTime * 1000,
+          'MAX_RETRIES': config.retryMax,
+          'CONFIRMATIONS': config.confirmations,
+          'THROW_ON_REVERT': false,
+          'ENABLE_EIP1559': config.eip1559,
+        }
+      });
     });
     this.queue.process(this.processJob.bind(this));
   }
@@ -39,25 +60,25 @@ class TxManager extends RedisQueue {
         to: receiver,
         value: new BigNumber(toWei(config.EtherToTransfer)).toString()
       };
-      const currentTx = await this.manager.createTx(txObject);
-      await currentTx
-        .send()
-        .on('transactionHash', txHash => {
-          this.updateTxHash(receiver, txHash);
-          this.updateStatus(receiver, 'SENT');
-        })
-        .on('mined', receipt => {
-          debug(`Mined in block ${receipt.blockNumber}`);
-          this.updateStatus(receiver, 'MINED');
-        })
-        .on('confirmations', async (confirmations) => {
-          this.updateConfirmations(receiver, confirmations);
-          this.updateStatus(receiver, 'CONFIRMED');
-          if (confirmations >= config.confirmations) {
-            await this.cleanJob(receiver);
-            done();
-          }
-        });
+      const currentTx = await this.retryFunc(() => this.manager.createTx(txObject));
+      await this.retryFunc(() => {
+        return currentTx
+          .send()
+          .on('transactionHash', txHash => {
+            this.updateTxHash(receiver, txHash);
+            this.updateStatus(receiver, 'SENT');
+          })
+          .on('mined', receipt => {
+            debug(`Mined in block ${receipt.blockNumber}`);
+            this.updateStatus(receiver, 'MINED');
+          })
+          .on('confirmations', async (confirmations) => {
+            this.updateConfirmations(receiver, confirmations);
+            this.updateStatus(receiver, 'CONFIRMED');
+          });
+      });
+      await this.cleanJob(receiver);
+      done();
     } catch (e) {
       error(`TxManager: Failed to process transaction behalf ${receiver}`);
       error(e);
@@ -86,7 +107,7 @@ class TxManager extends RedisQueue {
   }
   async resetJob(receiver) {
     const formatted = NodeManager.web3.utils.toChecksumAddress(receiver);
-    const ip = this.redis.get(`faucet:info:${formatted}`);
+    const ip = await this.redis.get(`faucet:info:${formatted}`);
     await this.redis.del(`faucet:ip:${ip}`);
     await this.redis.del(`faucet:info:${formatted}`);
     await this.redis.del(`faucet:user:${formatted}`);

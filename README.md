@@ -64,3 +64,4 @@ https://goerli-faucet.com
 + Improve privacy, encrypt redis key value
 + Telegram Authentication support
 + Improve logger
++ Improve NodeManager, collect statistics & health score for nodes

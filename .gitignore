@@ -7,3 +7,6 @@ config.json
 # IDE
 .idea
 .vscode
+
+package-lock.json
+yarn.lock
