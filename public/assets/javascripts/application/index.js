@@ -426,12 +426,12 @@ const main = async () => {
 			if (!receiverAddress) {
 				return;
 			}
-      const checkUser = await checkAddress();
-      if (!checkUser) {
-        return;
-      }
       const botUser = await checkBot();
       if (!botUser) {
+        return;
+      }
+      const checkUser = await checkAddress();
+      if (!checkUser) {
         return;
       }
 			const checkFaucet = checkFaucetBalance();
