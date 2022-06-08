@@ -21,6 +21,7 @@ class TxManager extends RedisQueue {
       privateKey: parsePrivateKey(),
       rpcUrl: NodeManager.nodes.replace(/\s+/g, '').split(',')[0],
       config: {
+        'POLL_INTERVAL': config.blockTime * 1000,
         'MAX_RETRIES': config.retryMax,
         'CONFIRMATIONS': config.confirmations,
         'THROW_ON_REVERT': false,
@@ -52,7 +53,7 @@ class TxManager extends RedisQueue {
         .on('confirmations', confirmations => {
           this.updateConfirmations(receiver, confirmations);
           this.updateStatus(receiver, 'CONFIRMED');
-          if (confirmations === config.confirmations) {
+          if (confirmations >= config.confirmations) {
             // Clear unnecessary redis key value after one minute
             setTimeout(() => this.cleanJob(receiver), 60000);
             done();
