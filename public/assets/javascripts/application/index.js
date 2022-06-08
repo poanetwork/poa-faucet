@@ -106,6 +106,9 @@ const updateStatic = async () => {
     $("a.social_oracles").attr('href', `${config.homepage}`);
     $("a.social_telegram").attr('href', `${config.telegram}`);
     $("a.social_github").attr('href', `${config.github}`);
+    if (config.telegram_bot === true) {
+      $('button#registerTelegram').removeClass('hidden').addClass('request-tokens-button-link').attr('onclick', `window.open('${config.telegram}','_blank');`);
+    }
 		loadCaptcha();
 		loader.addClass("hidden");
 	} catch (error) {

@@ -43,6 +43,16 @@
       background-color: #079dd4;
     }
   }
+
+  &-button-link {
+    @extend %btn;
+    display: inline-block;
+    background-color: #08b3f2;
+
+    &:hover {
+      background-color: #079dd4;
+    }
+  }
 }
 .metamask {
   position: absolute;
