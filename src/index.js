@@ -82,22 +82,20 @@ const Faucet = () => {
     }
     receiver = NodeManager.web3.utils.toChecksumAddress(receiver);
 
-    if (config.limitRequest === true) {
-      const ipAddress = await Redis.get(`faucet:ip:${rawIp}`);
+    const ipAddress = await Redis.get(`faucet:ip:${rawIp}`);
 
-      if (ipAddress !== null) {
-        return generateErrorResponse(res, {
-          message: messages.ALREADY_CLAIMED,
-        });
-      }
+    if (ipAddress !== null) {
+      return generateErrorResponse(res, {
+        message: messages.ALREADY_CLAIMED,
+      });
+    }
 
-      const address = await Redis.get(`faucet:user:${receiver}`);
+    const address = await Redis.get(`faucet:user:${receiver}`);
 
-      if (address !== null) {
-        return generateErrorResponse(res, {
-          message: messages.ALREADY_CLAIMED,
-        });
-      }
+    if (address !== null) {
+      return generateErrorResponse(res, {
+        message: messages.ALREADY_CLAIMED,
+      });
     }
 
     if (config.telegram_bot === true) {
@@ -229,22 +227,20 @@ const Faucet = () => {
     }
     receiver = NodeManager.web3.utils.toChecksumAddress(receiver);
 
-    if (config.limitRequest === true) {
-      const ipAddress = await Redis.get(`faucet:ip:${rawIp}`);
+    const ipAddress = await Redis.get(`faucet:ip:${rawIp}`);
 
-      if (ipAddress !== null) {
-        return generateErrorResponse(res, {
-          message: messages.ALREADY_CLAIMED,
-        });
-      }
+    if (ipAddress !== null) {
+      return generateErrorResponse(res, {
+        message: messages.ALREADY_CLAIMED,
+      });
+    }
 
-      const address = await Redis.get(`faucet:user:${receiver}`);
+    const address = await Redis.get(`faucet:user:${receiver}`);
 
-      if (address !== null) {
-        return generateErrorResponse(res, {
-          message: messages.ALREADY_CLAIMED,
-        });
-      }
+    if (address !== null) {
+      return generateErrorResponse(res, {
+        message: messages.ALREADY_CLAIMED,
+      });
     }
 
     return generateSuccessResponse(res, {

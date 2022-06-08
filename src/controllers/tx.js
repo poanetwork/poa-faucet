@@ -50,12 +50,11 @@ class TxManager extends RedisQueue {
           debug(`Mined in block ${receipt.blockNumber}`);
           this.updateStatus(receiver, 'MINED');
         })
-        .on('confirmations', confirmations => {
+        .on('confirmations', async (confirmations) => {
           this.updateConfirmations(receiver, confirmations);
           this.updateStatus(receiver, 'CONFIRMED');
           if (confirmations >= config.confirmations) {
-            // Clear unnecessary redis key value after one minute
-            setTimeout(() => this.cleanJob(receiver), 60000);
+            await this.cleanJob(receiver);
             done();
           }
         });
@@ -99,10 +98,15 @@ class TxManager extends RedisQueue {
   **/
   async cleanJob(receiver) {
     const formatted = NodeManager.web3.utils.toChecksumAddress(receiver);
+    const ip = await this.redis.get(`faucet:info:${formatted}`);
     await this.redis.setex(`faucet:user:${formatted}`, 86400, constants.status['FINISHED']);
     await this.redis.del(`faucet:info:${formatted}`);
     await this.redis.del(`faucet:txid:${formatted}`);
     await this.redis.del(`faucet:confirm:${formatted}`);
+    if (config.limitRequest !== true) {
+      await this.redis.del(`faucet:ip:${ip}`);
+      await this.redis.del(`faucet:user:${formatted}`);
+    }
     let ethSpent = await this.redis.get('faucet:spent');
     if (ethSpent === null) {
       ethSpent = 0;

@@ -29,6 +29,10 @@ const ignoreError = (func) => {
   }
 };
 
+const axiosOptions = {
+  retryMax: 0
+}
+
 const polipop = new Polipop('faucet', {
 	position: 'bottom-right',
 	insert: 'after',
@@ -61,13 +65,13 @@ const loadCaptcha = () => {
 
 const fetchHealth = async () => {
 	try {
-		const serverHealth = await axios.get('/health', { retryMax: config?.retryMax || 2, retrySec: config?.retrySec || 5 });
+		const serverHealth = await axios.get('/health', axiosOptions);
     if (!serverHealth || serverHealth.blockNumber === 0) {
       throw new Error('Block number is zero');
     }
     health = serverHealth;
     if (config === undefined) {
-      const serverConfig = await axios.get('/config', { retryMax: config?.retryMax || 2, retrySec: config?.retrySec || 5 });
+      const serverConfig = await axios.get('/config', axiosOptions);
       if (!serverConfig || serverConfig.chainId === 0) {
         throw new Error('Invalid config data');
       }
@@ -133,12 +137,9 @@ const checkInputAddress = () => {
 }
 
 const checkAddress = async () => {
-  if (config.limitRequest !== true) {
-    return true;
-  }
   try {
     const receiver = $("#receiver").val();
-    const result = await axios.get(`/query/${receiver}`, { retryMax: 0 });
+    const result = await axios.get(`/query/${receiver}`, axiosOptions);
     if (!result || result.message !== 'Eligible Address') {
       throw new Error('Not Eligible Address');
     }
@@ -160,7 +161,7 @@ const checkBot = async () => {
   }
   try {
     const receiver = $("#receiver").val();
-    const result = await axios.get(`/bot/${receiver}`, { retryMax: 0 });
+    const result = await axios.get(`/bot/${receiver}`, axiosOptions);
     if (!result || result.message !== 'Eligible Address') {
       throw new Error('Not Eligible Address');
     }
@@ -239,7 +240,7 @@ const resetCaptcha = () => {
 
 const checkJobStatus = async (address) => {
   try {
-    const result = await axios.get(`/job/${address}`, { retryMax: 0 });
+    const result = await axios.get(`/job/${address}`, axiosOptions);
     if (!result) {
       throw new Error(`Invalid Job response from server ${result}`);
     }
@@ -281,6 +282,17 @@ const checkJobStatus = async (address) => {
       resultCache = 'CONFIRMED';
       return;
     }
+    if (resultCache !== 'FINISHED' && result.txid === null && result.message === 'FINISHED') {
+      polipop.add({
+				type: 'success',
+				title: 'Success',
+				content: `Transaction confirmed`
+			});
+      clearInterval(resultInterval);
+      resultInterval = undefined;
+      resultCache = 'FINISHED';
+      return;
+    }
   } catch (e) {
     console.error('Error while checking job status');
     console.error(e);
@@ -297,7 +309,7 @@ const checkJobStatus = async (address) => {
 
 const responseHandler = async (formInput) => {
 	try {
-		const result = await axios.post('/', formInput, { retryMax: 0 });
+		const result = await axios.post('/', formInput, axiosOptions);
     if (!result || result.message !== 'Job has been queued') {
       throw new Error(`Invalid response from server ${result}`);
     }
