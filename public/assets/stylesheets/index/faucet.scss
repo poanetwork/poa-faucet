@@ -15,6 +15,15 @@
   padding: 30px;
   display: inline-block;
 
+  .faucet-balance {
+    margin-top: 20px;
+    margin-bottom: 0px !important;
+  }
+
+  .account-balance {
+    @extend .faucet-balance;
+  }
+
   h1 {
     @extend %title;
     margin-bottom: 20px;
@@ -33,5 +42,18 @@
     &:hover {
       background-color: #079dd4;
     }
+  }
+}
+.metamask {
+  position: absolute;
+  background-image: url(../images/metamask.svg);
+  background-color: #ffffff;
+  height: 36px;
+  width: 36px;
+  border-color: #ffffff;
+  border: 1px solid #eee;
+  margin-left: 5px;
+  &:hover {
+    background-color: #ffffff;
   }
 }

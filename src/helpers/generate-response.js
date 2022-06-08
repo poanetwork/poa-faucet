@@ -1,13 +1,26 @@
-function generateErrorResponse (response, err) {
-    const out = {
-      error: {
-        code: 500 || err.code,
-        title: 'Error' || err.title,
-        message: 'Internal server error' || err.message
-      }
-    };
-    console.log(err)
-    response.send(out)
-}
+const { debug, error } = require('./debug');
 
-module.exports = { generateErrorResponse }
+const generateErrorResponse = (response, err) => {
+  const errorResponse = {
+    code: err.code || 500,
+    title: err.title || 'Error',
+    message:  err.message || 'Internal server error'
+  };
+  error(err);
+  response.status(errorResponse.code).send(errorResponse);
+};
+
+const generateSuccessResponse = (response, success) => {
+  const successResponse = {
+    code: 200,
+    title: 'Success',
+    ...success
+  };
+  debug(success);
+  response.status(successResponse.code).send(successResponse);
+};
+
+module.exports = {
+  generateErrorResponse,
+  generateSuccessResponse
+};
