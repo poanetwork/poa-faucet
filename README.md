@@ -17,7 +17,7 @@ https://goerli-faucet.com
 
 1. Clone repository
   ```
-  git clone https://github.com/ayanamitech/ethereum-faucet
+  git clone https://github.com/poanetwork/poa-faucet
   ```
 2. Copy `config.json.example` to `config.json`
   ```
