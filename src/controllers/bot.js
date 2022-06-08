@@ -7,6 +7,8 @@ const config = require('./config');
 
 const BotService = async () => {
   if (config.telegram_bot !== true) {
+    // Don't exit the process
+    setInterval(() => {}, 1 << 30);
     return;
   }
   debug('Starting Telegram Bot Service');
