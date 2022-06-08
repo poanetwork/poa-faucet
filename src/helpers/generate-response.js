@@ -1,4 +1,4 @@
-const { debug, error } = require('./debug');
+const { debug } = require('./debug');
 
 const generateErrorResponse = (response, err) => {
   const errorResponse = {
@@ -6,7 +6,7 @@ const generateErrorResponse = (response, err) => {
     title: err.title || 'Error',
     message:  err.message || 'Internal server error'
   };
-  error(err);
+  debug(err);
   response.status(errorResponse.code).send(errorResponse);
 };
 

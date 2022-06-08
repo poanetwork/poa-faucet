@@ -2,6 +2,10 @@
 
 Ethereum compatible Testnet ETH Faucet, supports multiple captcha solutions (hCaptcha and reCaptcha).
 
+### Live
+
+https://goerli-faucet.com
+
 ### Requirements
 
 + Node.js
