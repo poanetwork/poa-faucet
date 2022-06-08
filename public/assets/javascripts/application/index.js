@@ -239,7 +239,7 @@ const resetCaptcha = () => {
 
 const checkJobStatus = async (address) => {
   try {
-    const result = await axios.get(`/job/${address}`);
+    const result = await axios.get(`/job/${address}`, { retryMax: 0 });
     if (!result) {
       throw new Error(`Invalid Job response from server ${result}`);
     }
@@ -284,6 +284,14 @@ const checkJobStatus = async (address) => {
   } catch (e) {
     console.error('Error while checking job status');
     console.error(e);
+    polipop.add({
+      type: 'error',
+      title: 'Error',
+      content: `Error while checking job process, will reset the job please try again`
+    });
+    clearInterval(resultInterval);
+    resultInterval = undefined;
+    resultCache = undefined;
   }
 }
 
