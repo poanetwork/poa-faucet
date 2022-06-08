@@ -102,11 +102,11 @@ const updateStatic = async () => {
 		$("#faucet-network").text(`${config.netName}`);
 		$("a#header-explorer").attr('href', `${config.explorer}`);
 		$("a#faucet-account").attr('href', `${faucet_account}`);
-    $(".rights").text(`${config.footer}`)
-    $("a.social_twitter").attr('href', `${config.twitter}`);
-    $("a.social_oracles").attr('href', `${config.homepage}`);
-    $("a.social_telegram").attr('href', `${config.telegram}`);
-    $("a.social_github").attr('href', `${config.github}`);
+    if (config.footer) $(".rights").text(`${config.footer}`);
+    if (config.twitter) $("a.social_twitter").attr('href', `${config.twitter}`);
+    if (config.homepage) $("a.social_oracles").attr('href', `${config.homepage}`);
+    if (config.telegram) $("a.social_telegram").attr('href', `${config.telegram}`);
+    if (config.github) $("a.social_github").attr('href', `${config.github}`);
     if (config.telegram_bot === true) {
       $('button#registerTelegram').removeClass('hidden').addClass('request-tokens-button-link').attr('onclick', `window.open('${config.telegram}','_blank');`);
     }
