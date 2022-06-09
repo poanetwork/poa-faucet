@@ -388,6 +388,7 @@ const handleMetamask = async () => {
             content: `Network added`
           });
         } catch (addError) {
+          console.error(`Could not add network ${addError}`);
           // handle "add" error
           polipop.add({
             type: 'error',
@@ -397,7 +398,7 @@ const handleMetamask = async () => {
         }
       }
       // handle other "switch" errors
-      console.error(`Could not change Metamask network ${e}`)
+      console.error(`Could not change Metamask network ${switchError}`)
       polipop.add({
         type: 'error',
         title: 'Error',
