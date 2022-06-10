@@ -1,13 +1,15 @@
 {
-  "name": "poa-network-sokol-faucet",
+  "name": "ethereum-faucet",
   "version": "1.0.1",
-  "description": "Sokol tetnet POA Network faucet",
-  "main": "index.js",
+  "description": "Etherum Network Faucet",
+  "main": "src/index.js",
   "scripts": {
-    "start": "npm run sass && npm run coffee && node index.js",
+    "start": "gulp && concurrently --kill-others \"node src/start.js\" \"node src/worker.js\" \"node src/update.js\" \"node src/bot.js\" \"gulp watch\"",
     "sass": "gulp sass",
     "coffee": "gulp javascript",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "repository": {
     "type": "git",
@@ -16,30 +18,43 @@
   "author": "poanetwork",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "1.18.3",
-    "ethereumjs-tx": "1.3.7",
-    "express": "4.16.4",
-    "moment": "2.24.0",
-    "querystring": "0.2.0",
-    "web3": "^1.0.0-beta.34"
+    "axios": "^0.27.2",
+    "axios-auto": "^0.28.5",
+    "bignumber.js": "9.0.2",
+    "body-parser": "^1.20.0",
+    "bull": "4.8.2",
+    "ethers": "^5.6.8",
+    "express": "^4.18.1",
+    "ioredis": "^5.0.6",
+    "node-telegram-bot-api": "^0.57.0",
+    "tx-manager": "github:ayanamitech/tx-manager#879792c545be5a9104f5bdec8f2eb58584344eab",
+    "use-config-json": "^1.0.5",
+    "web3": "^1.7.3",
+    "web3-providers-axios": "^1.7.6",
+    "web3-utils": "^1.7.3"
   },
   "devDependencies": {
-    "gulp": "^4.0.0",
+    "concurrently": "^7.2.1",
+    "eslint": "^8.17.0",
+    "gulp": "^4.0.2",
     "gulp-add-src": "1.0.0",
-    "gulp-autoprefixer": "6.0.0",
-    "gulp-cli": "2.0.1",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-cli": "^2.3.0",
     "gulp-concat": "2.6.1",
     "gulp-concat-css": "3.1.0",
-    "gulp-include": "2.3.1",
+    "gulp-include": "^2.4.1",
     "gulp-order": "1.2.0",
-    "gulp-postcss": "8.0.0",
-    "gulp-sass": "4.0.2",
-    "gulp-sass-glob": "1.0.9",
-    "gulp-uglify": "3.0.1",
+    "gulp-postcss": "^9.0.1",
+    "gulp-sass": "^5.1.0",
+    "gulp-sass-glob": "^1.1.0",
+    "gulp-uglify": "^3.0.2",
     "gulp-uglifycss": "1.1.0",
-    "http-server": "0.11.1"
+    "jquery": "^3.6.0",
+    "polipop": "^1.0.0",
+    "postcss": "^8.4.13",
+    "sass": "^1.51.0"
   },
   "engines": {
-    "node": "8.x"
+    "node": ">=12.x"
   }
 }

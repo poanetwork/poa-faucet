@@ -1,44 +1,56 @@
 'use strict';
 
 const gulp = require('gulp');
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('sass'));
 const sassGlob = require('gulp-sass-glob');
 const autoprefixer = require('gulp-autoprefixer');
+const uglify = require('gulp-uglify');
 const uglifycss = require('gulp-uglifycss');
-const include = require('gulp-include');
 const addsrc = require('gulp-add-src');
 const order = require('gulp-order');
 const concat = require('gulp-concat');
 const concatCss = require('gulp-concat-css');
-const uglify = require('gulp-uglify');
 
-gulp.task('sass', function() {
+const gulpSass = () => {
   return gulp.src([
     './public/assets/stylesheets/*.scss',
-    './public/assets/stylesheets/sweetalert2.min.css'
-    ])
+    'node_modules/polipop/dist/css/polipop.core.min.css',
+    'node_modules/polipop/dist/css/polipop.default.min.css'
+  ])
     .pipe(sassGlob())
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(concatCss('application.css'))
     .pipe(uglifycss())
     .pipe(gulp.dest('./public/assets/stylesheets/'));
-});
+};
 
-gulp.task('javascript', function() {
+const gulpJs = () => {
   return gulp.src('public/assets/javascripts/application/*.js')
-    .pipe(addsrc('public/assets/javascripts/vendor/index.js'))
+    .pipe(addsrc('node_modules/jquery/dist/jquery.min.js'))
+    .pipe(addsrc('node_modules/axios-auto/dist/browser/index.js'))
+    .pipe(addsrc('node_modules/polipop/dist/polipop.min.js'))
+    .pipe(addsrc('node_modules/bignumber.js/bignumber.js'))
+    .pipe(addsrc('node_modules/web3/dist/web3.min.js'))
     .pipe(order([
-      "public/assets/javascripts/vendor/index.js",
-      "public/assets/javascripts/application/*.js"
+      'node_modules/jquery/dist/jquery.min.js',
+      'node_modules/polipop/dist/polipop.min.js',
+      'node_modules/bignumber.js/bignumber.js',
+      'node_modules/web3/dist/web3.min.js',
+      'public/assets/javascripts/application/*.js'
     ], {base: '.'}))
-    .pipe(include())
     .pipe(concat('application.js'))
-    // .pipe(uglify())
+    .pipe(uglify())
     .pipe(gulp.dest('public/assets/javascripts'));
-});
+};
 
-gulp.task('watch', function() {
-  gulp.watch('./public/assets/stylesheets/**/**/*.scss', ['sass']);
-  gulp.watch('./public/assets/javascripts/application/*.js', ['javascript']);
-});
+const gulpWatch = () => {
+  return gulp.watch(['./public/assets/stylesheets/**/**/*.scss', './public/assets/javascripts/application/*.js'], gulp.parallel(gulpSass, gulpJs));
+};
+
+module.exports = {
+  default: gulp.parallel(gulpSass, gulpJs),
+  sass: gulpSass,
+  javascript: gulpJs,
+  watch: gulpWatch
+};

@@ -2,34 +2,44 @@
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sokol POA Network dev testnet faucet</title>
-    <link rel="stylesheet" type="text/css" href="./assets/stylesheets/application.css">
-    <link rel="apple-touch-icon" href="./favicons/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="./favicons/android-chrome-192x192.png">
-    <link rel="mask-icon" color="#6151cc" href="./favicons/safari-pinned-tab.svg">
-    <link rel="manifest" href="./favicons/manifest.webmanifest">
-    <link href="./favicons/favicon.ico" rel="icon" type="image/x-icon">
-    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <title>Ethereum dev testnet faucet</title>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/application.css">
+    <link href="assets/images/faucet_square_125.png" rel="icon" type="image/x-icon">
   </head>
   <body>
     <header class="header">
       <div class="container">
         <a href="#" class="header-logo"></a>
+        <a href="#" id="header-faucet" class="header-links">Faucet</a>
+        <a href="#" target="_blank" id="header-explorer" class="header-links">Explorer</a>
       </div>
     </header>
     <section class="content">
       <form action="/" method="POST" id="faucetForm">
         <div class="request-tokens">
-          <h1>Sokol POA Network faucet</h1>
-            <input type="text" id="receiver" name="receiver" />
+          <h1><span id="faucet-network"></span> faucet</h1>
+            <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response" value="" />
+            <input type="text" id="receiver" name="receiver" /> <button id="metamask" class="metamask"></button>
             <h2>
-              Please use https://sokol.poa.network RPC to connect<br>
-              to the Sokol testnet.
+              Please use <span id="faucet-rpc"></span> RPC to connect<br>
+              to the <span id="faucet-network"></span> testnet.
             </h2>
-            <button type="submit" id="requestTokens" class="request-tokens-button">Request 0.5 SPOA</button>
+            <button type="button" id="registerTelegram" class="hidden">Register Telegram</button>
+            <button type="submit" id="requestTokens" class="request-tokens-button"></button>
+            <div class="status">
+              <table style="width: 100%">
+                <tbody>
+                  <tr>
+                    <td style="text-align: center;">Block Number: <a href="#" target="_blank" id="block-number" style="color: #8197a2 !important;"><span id="blockNumber"></span></a></td>
+                    <td style="text-align: center;">Faucet Balance: <a href="#" target="_blank" id="faucet-account" style="color: #8197a2 !important;"><span id="faucet-balance"></span></a></td>
+                    <td style="text-align: center;">Total Paid: <span id="ethSpent"></span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
         </div>
         <div class="text-xs-center">
-          <div class="g-recaptcha" data-sitekey="6LdcdjQUAAAAACIxl5VzkTRuVG5KvWdf0rYcC7mD"></div>
+          <div id="captcha_container" class="g-recaptcha"></div>
         </div>
       </form>
     </section>
@@ -48,17 +58,19 @@
         <p class="rights">2018 POA Network. All rights reserved.</p>
         <a class="logo" href='/'></a>
         <div class="socials">
-          <a href="https://twitter.com/poanetwork" class="social social_twitter"></a>
-          <a href="https://poa.network" class="social social_oracles"></a>
-          <a href="https://t.me/oraclesnetwork" class="social social_telegram"></a>
-          <a href="https://github.com/poanetwork" class="social social_github"></a>
+          <a href="" target="_blank" class="social social_twitter"></a>
+          <a href="" target="_blank" class="social social_oracles"></a>
+          <a href="" target="_blank" class="social social_telegram"></a>
+          <a href="" target="_blank" class="social social_github"></a>
         </div>
       </div>
     </footer>
-    <script src="./assets/javascripts/application.js?v=1.4" type="text/javascript"></script>
+    <script src="assets/javascripts/application.js" type="text/javascript"></script>
     <script type="text/javascript">
       var url = new URL(window.location.href);
       document.getElementById('receiver').value = url.searchParams.get("address");
     </script>
+    <script src="https://js.hcaptcha.com/1/api.js?render=explicit&recaptchacompat=off"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=explicit"></script>
   </body>
 </html>
