@@ -56,9 +56,19 @@
       </div>
     </footer>
     <script src="./assets/javascripts/application.js?v=1.4" type="text/javascript"></script>
-    <script type="text/javascript">
-      var url = new URL(window.location.href);
+	<script type="text/javascript">
+   	var url = new URL(window.location.href);
       document.getElementById('receiver').value = url.searchParams.get("address");
     </script>
+	 <script type="text/javascript">
+		document.getElementById("requestTokens").addEventListener("click", tempDisableReCAPTCHA);
+
+		function tempDisableReCAPTCHA() {
+    		document.getElementById('requestTokens').disabled = true;
+	 		setTimeout(function() {
+		 		document.getElementById('requestTokens').disabled = false;
+	 		}, 10000);
+		}
+	</script>
   </body>
 </html>
